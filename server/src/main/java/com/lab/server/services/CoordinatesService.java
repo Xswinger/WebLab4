@@ -15,14 +15,18 @@ public class CoordinatesService {
     private final CoordinatesRepository coordinatesRepository;
 
     private final UserRepository userRepository;
+
+    private final CoordinatesValidator validator;
+
     @Autowired
-    public CoordinatesService(CoordinatesRepository coordinatesRepository, UserRepository userRepository) {
+    public CoordinatesService(CoordinatesRepository coordinatesRepository, UserRepository userRepository, CoordinatesValidator validator) {
         this.coordinatesRepository = coordinatesRepository;
         this.userRepository = userRepository;
+        this.validator = validator;
     }
 
     public CoordinatesModel createCoordinates(Coordinates coordinates, Long userId) throws InvalidCoordinatesException {
-        if (!CoordinatesValidator.validateCoordinates(coordinates)) {
+        if (!validator.validateCoordinates(coordinates)) {
             throw new InvalidCoordinatesException("Неверный набор координат");
         }
 

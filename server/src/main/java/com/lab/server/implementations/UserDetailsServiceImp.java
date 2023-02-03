@@ -29,6 +29,12 @@ public class UserDetailsServiceImp implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Пользователь с таким логином не найден");
         }
+        method2();
         return UserDetailsImp.build(user);
+    }
+
+    @Transactional
+    public void method2() {
+        System.out.println("jfowjf");
     }
 }

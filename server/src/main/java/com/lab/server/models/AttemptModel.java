@@ -7,7 +7,6 @@ public class AttemptModel {
     private Double y;
     private Double r;
     private Boolean result;
-
     public AttemptModel() {
     }
 

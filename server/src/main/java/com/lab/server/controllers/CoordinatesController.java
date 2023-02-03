@@ -20,22 +20,13 @@ public class CoordinatesController {
     }
 
     @PostMapping
-    public ResponseEntity createCoordinates(@RequestBody Coordinates coordinates, @RequestParam Long userId) {
+    public ResponseEntity<?> createCoordinates(@RequestBody Coordinates coordinates, @RequestParam Long userId) {
         try {
             return ResponseEntity.ok(coordinatesService.createCoordinates(coordinates, userId));
         } catch (InvalidCoordinatesException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
-        }
-    }
-
-    @DeleteMapping
-    public ResponseEntity removeCoordinates(@RequestParam Long coordinatesId) {
-        try {
-            return ResponseEntity.ok(coordinatesService.removeCoordinates(coordinatesId));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла непредвиденная ошибка");
         }
     }
 }

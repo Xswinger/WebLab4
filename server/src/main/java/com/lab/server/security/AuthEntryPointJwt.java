@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-//Catch authentication error
-
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 

@@ -2,8 +2,6 @@ package com.lab.server.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class Coordinates {
     @Id
@@ -15,9 +13,17 @@ public class Coordinates {
 
     @OneToOne(mappedBy = "coordinates", cascade = CascadeType.ALL)
     private Attempt attempt;
+
     public Coordinates() {
 
     }
+
+    public Coordinates(double x, double y, double r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+
     public Long getId() {
         return id;
     }

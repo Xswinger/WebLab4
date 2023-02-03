@@ -1,17 +1,21 @@
 package com.lab.server.controllers;
 
-import com.lab.server.entities.Coordinates;
-import com.lab.server.exceptions.InvalidCoordinatesException;
+import com.lab.server.payload.JwtRequest;
 import com.lab.server.services.AttemptService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/attempt")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AttemptController {
 
-    @Autowired
+    Logger logger = LoggerFactory.getLogger(AttemptController.class);
+
     private final AttemptService attemptService;
 
     @Autowired
@@ -19,23 +23,22 @@ public class AttemptController {
         this.attemptService = attemptService;
     }
 
-    @PostMapping
-    public ResponseEntity addAttempt(@RequestBody Coordinates coordinates, @RequestParam Long id) {
+    @PostMapping("/add")
+    public ResponseEntity<Object> addAttempt(@Valid @RequestBody JwtRequest request) {
         try {
-            return ResponseEntity.ok(attemptService.createAttempt(coordinates, id));
-        } catch (InvalidCoordinatesException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok(attemptService.createAttempt(request));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            logger.error(request.getX().toString());
+            return ResponseEntity.badRequest().body("Произошла ошибка: " + e.getMessage());
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity removeAttempt(@RequestParam Long attemptId) {
+    @PostMapping("/getAll")
+    public ResponseEntity<Object> getAllAttempt() {
         try {
-            return ResponseEntity.ok(attemptService.removeAttempt(attemptId));
+            return ResponseEntity.ok(attemptService.getAllAttempt());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла ошибка: " + e.getMessage());
         }
     }
 }

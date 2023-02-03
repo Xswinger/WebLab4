@@ -1,17 +1,15 @@
 package com.lab.server.payload;
-
 import com.lab.server.models.AttemptModel;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class JwtResponse {
 
+public class DataResponse implements Serializable {
     private List<AttemptModel> coordinates;
 
-    public JwtResponse(List<AttemptModel> attemptsModel) {
-        this.coordinates = attemptsModel;
-    }
-
-    public JwtResponse() {
+    public DataResponse(List<AttemptModel> coordinates) {
+        this.coordinates = coordinates;
     }
 
     public List<AttemptModel> getCoordinates() {
@@ -21,4 +19,5 @@ public class JwtResponse {
     public void setCoordinates(List<AttemptModel> coordinates) {
         this.coordinates = coordinates;
     }
+
 }

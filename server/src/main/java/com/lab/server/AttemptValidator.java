@@ -9,23 +9,23 @@ import static java.lang.Math.pow;
 @Service
 public class AttemptValidator {
 
-    public static boolean hitCheck(Coordinates coordinates) {
+    public boolean hitCheck(Coordinates coordinates) {
         return (secondQuarterHitCheck(coordinates) || thirdQuarterHitCheck(coordinates)
                 || fourQuarterHitCheck(coordinates));
     }
 
-    private static boolean secondQuarterHitCheck(Coordinates coordinates) {
+    private boolean secondQuarterHitCheck(Coordinates coordinates) {
         return ((coordinates.getR()/2) >= coordinates.getY() && coordinates.getX() <= 0 && coordinates.getY() >= 0
-                && coordinates.getY() <= Math.abs(coordinates.getR()));
+                && coordinates.getX() >= (-coordinates.getR()));
     }
 
-    private static boolean thirdQuarterHitCheck(Coordinates coordinates) {
-        return (coordinates.getX() >= 0 && coordinates.getY() <= 0
-                && coordinates.getY() >= (2*coordinates.getX() - coordinates.getR()));
+    private boolean thirdQuarterHitCheck(Coordinates coordinates) {
+        return (coordinates.getX() <= 0 && coordinates.getY() <= 0
+                && coordinates.getY() >= (- coordinates.getX() - (coordinates.getR()/2)));
     }
 
-    private static boolean fourQuarterHitCheck(Coordinates coordinates) {
-        return ((pow(coordinates.getX(), 2) + pow(coordinates.getY(), 2) <= abs(coordinates.getR()/2))
+    private boolean fourQuarterHitCheck(Coordinates coordinates) {
+        return ((pow(coordinates.getX(), 2) + pow(coordinates.getY(), 2) <= coordinates.getR())
                 && coordinates.getX() >= 0 && coordinates.getY() <= 0);
     }
 

@@ -12,14 +12,6 @@ public class UserModel {
     public UserModel() {
     }
 
-    public static UserModel toModel(User entity) {
-        UserModel model = new UserModel();
-        model.setId(entity.getId());
-        model.setUsername(entity.getLogin());
-//        model.setCoordinates(entity.getCoordinatesList().stream().map(CoordinatesModel::toModel).collect(Collectors.toList()));
-        return model;
-    }
-
     public String getUsername() {
         return Username;
     }
